@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { PORT, mongoDBURL } from "./config.js";
 import { Event } from "./models/eventModel.js";
 import eventRoute from "./routes/eventRoute.js";
+import studentRoute from "./routes/studentRoute.js"
 import cors from "cors";
 
 const app = express();
@@ -19,6 +20,8 @@ app.get("/", (request, response) => {
     return response.status(200).send("Hello.");
 });
 app.use("/events", eventRoute);
+app.use("/students", studentRoute);
+
 
 mongoose
     .connect(mongoDBURL)

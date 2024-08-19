@@ -24,4 +24,4 @@ const studentSchema = mongoose.Schema(
   }
 );
 
-export const Event = mongoose.model("Event", eventSchema);
+export const Student = mongoose.model("Student", studentSchema);
