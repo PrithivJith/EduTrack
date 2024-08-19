@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Home from './Home'
 const App = () => {
   return (
-    <div className='bg-red-400 text-white'>
-      EduTrack
+    <div>
+        <Home />
     </div>
   )
 }

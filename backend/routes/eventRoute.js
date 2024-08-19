@@ -5,13 +5,14 @@ const router = express.Router();
 
 router.post("/", async (request, response) => {
     try {
-        if (!request.body.date || !request.body.description) {
+        if (!request.body.date || !request.body.description || !request.body.title) {
             return response.status(400).send({
-                message: "Send all required fields: date, description",
+                message: "Send all required fields",
             });
         }
         const newEvent = {
             date: request.body.date,
+            title: request.body.title,
             description: request.body.description,
         };
         const event = await Event.create(newEvent);
@@ -42,9 +43,9 @@ router.get("/:id", async (request, response) => {
 });
 router.put("/:id", async (request, response) => {
     try {
-        if (!request.body.date || !request.body.description) {
+        if (!request.body.date || !request.body.description || !request.body.title) {
             return response.status(400).send({
-                message: "Send all required fields: date, description",
+                message: "Send all required fields",
             });
         }
         const { id } = request.params;
