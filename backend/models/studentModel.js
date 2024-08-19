@@ -13,10 +13,6 @@ const studentSchema = mongoose.Schema(
     attendance: {
       type: String,
       required: true,
-    },
-    scores:{
-      type: String,
-      required: true,
     }
   },
   {

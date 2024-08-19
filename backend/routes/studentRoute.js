@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/", async (request, response) => {
     try {
-        if (!request.body.positive || !request.body.negative || !request.body.attendance || !request.body.scores) {
+        if (!request.body.positive || !request.body.negative || !request.body.attendance){
             return response.status(400).send({
                 message: "Send all required fields",
             });
@@ -14,7 +14,6 @@ router.post("/", async (request, response) => {
             positive: request.body.positive,
             negative: request.body.negative,
             attendance: request.body.attendance,
-            scores: request.body.scores,
 
         };
         const student = await Student.create(newStudent);
@@ -45,7 +44,7 @@ router.get("/:id", async (request, response) => {
 });
 router.put("/:id", async (request, response) => {
     try {
-      if (!request.body.positive || !request.body.negative || !request.body.attendance || !request.body.scores) {
+      if (!request.body.positive || !request.body.negative || !request.body.attendance ) {
         return response.status(400).send({
             message: "Send all required fields",
         });
