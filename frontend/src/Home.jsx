@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavigationBar from "./components/NavigationBar";
-import EventList from "./components/EventList";
-import AddEvent from "./components/AddEvent";
+
 import axios from "axios";
 
 const Home = () => {
@@ -26,9 +25,8 @@ const Home = () => {
 
   return (
     <div>
-      <NavigationBar />
-      <EventList data={data} />
-      <AddEvent />
+      <NavigationBar data={data}/>
+      
     </div>
   );
 };

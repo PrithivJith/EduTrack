@@ -3,9 +3,10 @@ import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { MdDone } from "react-icons/md";
 import axios from "axios";
-const Event = ({ data }) => {
+
+const Event = ({ data, defaultEdit }) => {
   const [isStarred, setIsStarred] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(defaultEdit);
   const [title, setTitle] = useState(data.title);
   const [date, setDate] = useState(data.date);
   const [description, setDescription] = useState(data.description);
@@ -14,6 +15,9 @@ const Event = ({ data }) => {
     setIsStarred(!isStarred);
   };
   async function handleEdit() {
+    if (!title || !description || !date) {
+      return;
+    }
     try {
       const response = await axios.put(
         `http://localhost:5555/events/${data._id}`,
@@ -81,7 +85,7 @@ const Event = ({ data }) => {
         ) : (
           <input
             required
-            className="ml-1"
+            className="ml-4"
             type="text"
             value={date}
             onChange={(e) => setDate(e.target.value)}
