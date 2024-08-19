@@ -1,52 +1,114 @@
-import React from "react";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
-import { FaRegStar } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
-
+import React, { useState } from "react";
+import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDone } from "react-icons/md";
+import axios from "axios";
 const Event = ({ data }) => {
-  console.log(data);
-  const normal = document.getElementById("normal");
-  const starred = document.getElementById("starred");
-  normal.style.display = "inline";
-  starred.style.display = "none";
+  const [isStarred, setIsStarred] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [title, setTitle] = useState(data.title);
+  const [date, setDate] = useState(data.date);
+  const [description, setDescription] = useState(data.description);
+
+  const toggleStar = () => {
+    setIsStarred(!isStarred);
+  };
+  async function handleEdit() {
+    try {
+      const response = await axios.put(
+        `http://localhost:5555/events/${data._id}`,
+        {
+          title: title,
+          description: description,
+          date: date,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Response:", response.data);
+      setIsEdit(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  }
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
+  };
+  async function del() {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5555/events/${data._id}`
+      );
+      console.log("Response:", response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  }
   return (
-    <>
-      <div className="bg-rose-100 min-h-[200px] m-4 rounded-md shadow-lg p-4 flex flex-col justify-between">
-        <div className="flex flex-col">
+    <div className="bg-rose-100 min-h-[200px] m-4 rounded-md shadow-lg p-4 flex flex-col justify-between">
+      <div className="flex flex-col">
+        {!isEdit ? (
           <h2 className="text-3xl text-center underline">{data.title}</h2>
+        ) : (
+          <input
+            required
+            className="m-4"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        )}
+        {!isEdit ? (
           <p className="text-center text-lg m-4">{data.description}</p>
-        </div>
-        <div className="flex items-end justify-between">
+        ) : (
+          <input
+            required
+            className="m-4"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        )}
+      </div>
+      <div className="flex items-end justify-between">
+        {!isEdit ? (
           <h3 className="ml-1">Date: {data.date}</h3>
-          <div className="flex gap-1">
-            <MdDelete size={32} />
-            <MdEdit size={32} />
-            <FaRegStar
-              id="normal"
-              size={32}
-              onClick={() => {
-                normal.style.display = "none";
+        ) : (
+          <input
+            required
+            className="ml-1"
+            type="text"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        )}
 
-                starred.style.display = "inline";
-              }}
-            />
-            <FaStar
-              id="starred"
-              color="hsl(54, 93.00%, 40%)"
-              
-              size={32}
-              onClick={() => {
-                normal.style.display = "inline";
-
-                starred.style.display = "none";
-              }}
-            />
-          </div>
+        <div className="flex gap-1">
+          {!isEdit ? (
+            <div className="flex">
+              <MdDelete size={32} onClick={del} />
+              <MdEdit size={32} onClick={toggleEdit} />
+              {isStarred ? (
+                <FaStar
+                  size={32}
+                  color="hsl(54, 93.00%, 40%)"
+                  onClick={toggleStar}
+                />
+              ) : (
+                <FaRegStar size={32} onClick={toggleStar} />
+              )}
+            </div>
+          ) : (
+            <MdDone size={32} onClick={handleEdit} />
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
