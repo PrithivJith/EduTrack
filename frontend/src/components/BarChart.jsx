@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
 const BarChart = ({ student }) => {
-  const [data] = useState(student.attendance.split(",").map(Number)); // Convert to numbers
+  //CREDIT: https://www.youtube.com/watch?v=hOzKr8H_438 modified for my project
+
+  const [data] = useState(student.attendance.split(",").map(Number)); 
   const svgRef = useRef();
 
   useEffect(() => {
@@ -13,6 +15,7 @@ const BarChart = ({ student }) => {
       .attr("width", w)
       .attr("height", h)
       .style("overflow", "visible");
+      
     //.style("margin-top", "500px");
 
     const xScale = d3
@@ -22,7 +25,7 @@ const BarChart = ({ student }) => {
       .padding(0.5);
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data)]) // Use max value from data
+      .domain([0, d3.max(data)]) 
       .range([h, 0]);
     const xAxis = d3.axisBottom(xScale).ticks(data.length);
     const yAxis = d3.axisLeft(yScale).ticks(5);
@@ -37,7 +40,8 @@ const BarChart = ({ student }) => {
       .attr("y", (val) => yScale(val))
       .attr("width", xScale.bandwidth())
       .attr("height", (val) => h - yScale(val))
-      .attr("class", "bar");
+      .attr("class", "bar")
+      .style("fill", "#fb7185");  
   }, [data]);
 
   return (

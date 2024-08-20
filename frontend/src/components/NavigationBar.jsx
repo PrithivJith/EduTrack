@@ -10,7 +10,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import BarChart from "./BarChart";
 import axios from "axios";
 const NavigationBar = ({ data, student }) => {
-  const [mode, setMode] = useState("report");
+  const [mode, setMode] = useState("events");
   const [edit, setEdit] = useState(false);
   const [positive, setPositive] = useState(student.positive);
   const [negative, setNegative] = useState(student.negative);

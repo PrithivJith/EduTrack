@@ -3,15 +3,16 @@ import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from "react";
 
 const PieChart = ({ student }) => {
+  //CREDIT: https://www.youtube.com/watch?v=10dl-gDJLks modified for my project
   const [data] = useState([
-    { property: `positive - ${student.positive}`, value: student.positive },
-    { property: `negative - ${student.negative}`, value: student.negative },
+    { property: `Good - ${student.positive}`, value: student.positive },
+    { property: `Bad - ${student.negative}`, value: student.negative },
   ]);
   const svgRef = useRef();
 
   useEffect(() => {
-    const w = 280;
-    const h = 280;
+    const w = 310;
+    const h = 310;
     const radius = w / 2;
 
     const svg = d3
@@ -22,7 +23,7 @@ const PieChart = ({ student }) => {
       .style("margin-top", "260px");
     const formatData = d3.pie().value((d) => d.value)(data);
     const arcGenerator = d3.arc().innerRadius(5).outerRadius(radius);
-    const color = d3.scaleOrdinal().range(d3.schemeSet2);
+    const color = d3.scaleOrdinal().range(["#fb7185","#9d174d"]);
 
     svg
       .selectAll()
@@ -37,7 +38,8 @@ const PieChart = ({ student }) => {
       .join("text")
       .text((d) => d.data.property)
       .attr("transform", (d) => `translate(${arcGenerator.centroid(d)})`)
-      .style("text-anchor", "middle");
+      .style("text-anchor", "middle")
+       .style("fill", "white");
   }, data);
   return (
     <div className="flex flex-col justify-center items-center">
