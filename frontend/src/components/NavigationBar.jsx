@@ -42,7 +42,7 @@ const NavigationBar = ({ data, student }) => {
   }
   return (
     <>
-      <div className=" flex items-center justify-between  h-16  fixed w-[100%] top-0">
+      <div className=" flex items-center justify-between  h-16  fixed w-[100%] top-0 z-10">
         <div
           className="w-[50%] h-[100%] bg-rose-500 flex justify-center items-center border-r-4 rounded-bl-lg "
           onClick={() => setMode("report")}
