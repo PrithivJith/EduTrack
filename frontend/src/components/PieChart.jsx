@@ -44,7 +44,7 @@ const PieChart = ({ student }) => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="relative top-16 text-3xl mt-5 text-center">Student's Behavior</h1>
-      <div className="w-[0%] absolute  top-6">
+      <div className="w-[0%] fixed  top-6">
         <svg ref={svgRef}></svg>
       </div>
     </div>
