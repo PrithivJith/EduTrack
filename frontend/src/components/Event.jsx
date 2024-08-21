@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { MdDone } from "react-icons/md";
+import { MdDelete, MdEdit, MdDone } from "react-icons/md";
 import axios from "axios";
+import SyncLoader from "react-spinners/SyncLoader";
 
-const Event = ({ data, reload }) => {
+const Event = ({ data, reload,eLoad }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState(data.title);
-
   const [date, setDate] = useState(data.date);
   const [description, setDescription] = useState(data.description);
+  const [loading, setLoading] = useState(false); 
 
   async function toggleStar() {
-    
+    setLoading(true); 
     try {
       const response = await axios.put(
         `https://edutackprivate.onrender.com/events/${data._id}`,
         {
           title: data.title,
-          description:data. description,
+          description: data.description,
           date: data.date,
           star: !data.star,
         },
@@ -30,13 +30,16 @@ const Event = ({ data, reload }) => {
       );
       console.log("Response:", response.data);
       setIsEdit(false);
-      reload();
+      reload(data._id);
     } catch (error) {
       console.error("There was an error!", error);
+    } finally {
+      setLoading(false);
     }
-  };
+  }
+
   async function handleEdit() {
-    if (!title || !description || !date ) {
+    if (!title || !description || !date) {
       return;
     }
     try {
@@ -61,9 +64,11 @@ const Event = ({ data, reload }) => {
       console.error("There was an error!", error);
     }
   }
+
   const toggleEdit = () => {
     setIsEdit(!isEdit);
   };
+
   async function del() {
     try {
       const response = await axios.delete(
@@ -75,6 +80,7 @@ const Event = ({ data, reload }) => {
       console.error("There was an error!", error);
     }
   }
+
   return (
     <div className="bg-rose-100 min-h-[200px] m-4 rounded-md shadow-lg p-4 flex flex-col justify-between">
       <div className="flex flex-col">
@@ -113,13 +119,12 @@ const Event = ({ data, reload }) => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
-           
           </div>
         )}
 
         <div className="flex gap-1">
           {!isEdit ? (
-            <div className="flex">
+            <div className="flex items-center">
               <MdDelete
                 size={32}
                 className="hover:cursor-pointer"
@@ -130,7 +135,9 @@ const Event = ({ data, reload }) => {
                 className="hover:cursor-pointer"
                 onClick={toggleEdit}
               />
-              {data.star ? (
+              {((eLoad)||loading) ? (
+                <SyncLoader size={10} color="#000" />
+              ) : data.star ? (
                 <FaStar
                   size={32}
                   color="hsl(54, 93.00%, 40%)"

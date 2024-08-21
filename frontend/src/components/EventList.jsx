@@ -1,11 +1,9 @@
 import React from "react";
 import Event from "./Event";
 
-const EventList = ({ data,reload }) => {
+const EventList = ({ data,reload, eLoad }) => {
   const events = [];
-  while (!data) {
-    //
-  }
+  
   console.log(events);
   return (
     <div className="mb-24">
@@ -14,7 +12,7 @@ const EventList = ({ data,reload }) => {
         {
           data.map((element) => (
             <li key={element._id}>
-              <Event data={element} reload={reload} />
+              <Event eLoad={eLoad}  data={element} reload={reload} />
             </li>
           ))
         }
