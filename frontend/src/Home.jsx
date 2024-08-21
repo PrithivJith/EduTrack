@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5555/events/")
+      .get("https://edutackprivate.onrender.com/events/")
       .then((response) => {
         setData(response.data);
         setLoading(false);
@@ -23,7 +23,7 @@ const Home = () => {
       });
 
     axios
-      .get("http://localhost:5555/students/")
+      .get("https://edutackprivate.onrender.com/students/")
       .then((response) => {
         setStudent(response.data[0]);
         setStudentLoad(false);
@@ -42,7 +42,7 @@ const Home = () => {
   }
 function reload(){
   axios
-  .get("http://localhost:5555/events/")
+  .get("https://edutackprivate.onrender.com/events/")
   .then((response) => {
     setData(response.data);
     setLoading(false);
@@ -53,7 +53,7 @@ function reload(){
   });
 
 axios
-  .get("http://localhost:5555/students/")
+  .get("https://edutackprivate.onrender.com/students/")
   .then((response) => {
     setStudent(response.data[0]);
     setStudentLoad(false);

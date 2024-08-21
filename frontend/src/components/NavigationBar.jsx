@@ -21,7 +21,7 @@ const NavigationBar = ({ data, student,reload }) => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:5555/students/${student._id}`,
+        `https://edutackprivate.onrender.com/students/${student._id}`,
         {
           positive: positive,
           negative: negative,

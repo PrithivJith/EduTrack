@@ -15,7 +15,7 @@ const Event = ({ data, reload }) => {
     
     try {
       const response = await axios.put(
-        `http://localhost:5555/events/${data._id}`,
+        `https://edutackprivate.onrender.com/events/${data._id}`,
         {
           title: data.title,
           description:data. description,
@@ -41,7 +41,7 @@ const Event = ({ data, reload }) => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:5555/events/${data._id}`,
+        `https://edutackprivate.onrender.com/events/${data._id}`,
         {
           title: title,
           description: description,
@@ -67,7 +67,7 @@ const Event = ({ data, reload }) => {
   async function del() {
     try {
       const response = await axios.delete(
-        `http://localhost:5555/events/${data._id}`
+        `https://edutackprivate.onrender.com/events/${data._id}`
       );
       console.log("Response:", response.data);
       reload();

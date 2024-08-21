@@ -5,7 +5,7 @@ const AddEvent = ({ reload }) => {
   async function add() {
     try {
       const response = await axios.post(
-        `http://localhost:5555/events/`,
+        `https://edutackprivate.onrender.com/events/`,
         {
           title: "Enter Title",
           description: "Enter Description",
