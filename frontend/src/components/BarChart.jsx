@@ -1,23 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
 const BarChart = ({ student }) => {
-  //CREDIT: https://www.youtube.com/watch?v=hOzKr8H_438 modified for my project
-
-  const [data] = useState(student.attendance.split(",").map(Number)); 
   const svgRef = useRef();
 
   useEffect(() => {
+    const data = student.attendance.split(",").map(Number);
+
     const w = 300;
     const h = 200;
+
     const svg = d3
       .select(svgRef.current)
       .attr("width", w)
       .attr("height", h)
       .style("overflow", "visible");
-      
-    //.style("margin-top", "500px");
 
+    // Scales
     const xScale = d3
       .scaleBand()
       .domain(data.map((val, i) => i))
@@ -25,12 +24,20 @@ const BarChart = ({ student }) => {
       .padding(0.5);
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data)]) 
+      .domain([0, d3.max(data)])
       .range([h, 0]);
+
+    svg.selectAll(".x-axis").remove();
+    svg.selectAll(".y-axis").remove();
+
     const xAxis = d3.axisBottom(xScale).ticks(data.length);
     const yAxis = d3.axisLeft(yScale).ticks(5);
-    svg.append("g").call(xAxis).attr("transform", `translate(0,${h})`);
-    svg.append("g").call(yAxis);
+    svg
+      .append("g")
+      .call(xAxis)
+      .attr("transform", `translate(0,${h})`)
+      .attr("class", "x-axis");
+    svg.append("g").call(yAxis).attr("class", "y-axis");
 
     svg
       .selectAll(".bar")
@@ -41,9 +48,8 @@ const BarChart = ({ student }) => {
       .attr("width", xScale.bandwidth())
       .attr("height", (val) => h - yScale(val))
       .attr("class", "bar")
-      .style("fill", "#fb7185");  
-  }, [data]);
-
+      .style("fill", "#fb7185");
+  }, [student]);
   return (
     <div>
       <div className="flex justify-center items-center flex-col mt-[370px]">

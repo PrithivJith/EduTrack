@@ -35,7 +35,7 @@ const NavigationBar = ({ data, student,reload }) => {
       );
       console.log("Response:", response.data);
       setEdit(false);
-      window.location.reload();
+      reload();
     } catch (error) {
       console.error("There was an error!", error);
     }
