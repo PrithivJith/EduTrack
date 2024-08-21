@@ -16,7 +16,6 @@ const BarChart = ({ student }) => {
       .attr("height", h)
       .style("overflow", "visible");
 
-    // Scales
     const xScale = d3
       .scaleBand()
       .domain(data.map((val, i) => i))
@@ -52,8 +51,8 @@ const BarChart = ({ student }) => {
   }, [student]);
   return (
     <div>
-      <div className="flex justify-center items-center flex-col mt-[370px]">
-        <h1 className="relative top-16 text-3xl mb-24 text-center">
+      <div className="flex justify-center items-center mb-24 ml-5 flex-col  mt-[370px]">
+        <h1 className="relative top-16 text-3xl mb-24 text-center ">
           Student Attendance
         </h1>
         <svg ref={svgRef}></svg>

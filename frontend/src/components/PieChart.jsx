@@ -4,57 +4,62 @@ import React, { useEffect, useRef, useState } from "react";
 
 const PieChart = ({ student }) => {
   const svgRef = useRef();
+  const radius = 130;
+  const totalWidth = radius * 2;
+  const pieData = [
+    { label: "Good", value: student.positive },
+    { label: "Bad", value: student.negative },
+  ];
 
   useEffect(() => {
-    const data = [
-      { property: `Good - ${student.positive}`, value: student.positive },
-      { property: `Bad - ${student.negative}`, value: student.negative },
-    ];
+    const svg = d3.select(svgRef.current);
 
-    const w = 310;
-    const h = 310;
-    const radius = w / 2;
+    const color = ["#fb7185", "#9f1239"];
 
-    const svg = d3
-      .select(svgRef.current)
-      .attr("width", w)
-      .attr("height", h)
-      .style("overflow", "visible")
-      .style("margin-top", "260px");
+    const pie = d3.pie().value((d) => d.value);
+    const dataReady = pie(pieData);
 
-    const formatData = d3.pie().value((d) => d.value)(data);
-    const arcGenerator = d3.arc().innerRadius(5).outerRadius(radius);
-    const color = d3.scaleOrdinal().range(["#fb7185", "#9d174d"]);
-
-    
-    svg.selectAll("path").remove();
-    svg.selectAll("text").remove();
+    const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
 
     svg
-      .selectAll("path")
-      .data(formatData)
-      .join("path")
+      .selectAll(".mySlices")
+      .data(dataReady)
+      .enter()
+      .append("path")
       .attr("d", arcGenerator)
-      .attr("fill", (d) => color(d.value))
-      //.style("opacity", 0.7);
+      .attr("fill", (d, i) => color[i])
+      .attr("opacity", 1)
+      .attr("transform", `translate(${radius},${radius})`);
 
     svg
-      .selectAll("text")
-      .data(formatData)
-      .join("text")
-      .text((d) => d.data.property)
-      .attr("transform", (d) => `translate(${arcGenerator.centroid(d)})`)
-      .style("text-anchor", "middle")
-      .style("fill", "white");
-  }, [student]); 
+      .selectAll(".mySlices")
+      .data(dataReady)
+      .enter()
+      .append("text")
+      .text((d) => d.data.label + " : " + d.data.value)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 17)
+      .attr("fill", "white")  
+      .attr(
+        "transform",
+        (d) =>
+          `translate(${arcGenerator.centroid(
+            d
+          )}) translate(${radius},${radius})`
+      );
+  }, [student]);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="relative top-16 text-3xl mt-5 text-center">
         Student's Behavior
       </h1>
-      <div className="w-[0%] fixed top-6">
-        <svg ref={svgRef}></svg>
+      <div className=" absolute top-40">
+        <svg
+          ref={svgRef}
+          width={totalWidth}
+          height={totalWidth}
+        ></svg>
       </div>
     </div>
   );
