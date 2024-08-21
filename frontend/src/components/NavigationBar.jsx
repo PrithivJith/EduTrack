@@ -8,18 +8,18 @@ import { MdDone } from "react-icons/md";
 import PieChart from "./PieChart";
 import { MdModeEditOutline } from "react-icons/md";
 import BarChart from "./BarChart";
-import FadeLoader from "react-spinners/FadeLoader";
+import BarLoader from "react-spinners/BarLoader";
 
 import axios from "axios";
-const NavigationBar = ({ data, student,reload,sLoad,eLoad }) => {
+const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
   const [mode, setMode] = useState("events");
   const [edit, setEdit] = useState(false);
-  const [addLoad,setAddLoad] = useState(false);
+  const [addLoad, setAddLoad] = useState(false);
   const [positive, setPositive] = useState(student.positive);
   const [negative, setNegative] = useState(student.negative);
   const [attendance, setAttendance] = useState(student.attendance);
 
-  function handleAddLoad(loading){
+  function handleAddLoad(loading) {
     setAddLoad(loading);
   }
 
@@ -52,7 +52,7 @@ const NavigationBar = ({ data, student,reload,sLoad,eLoad }) => {
     <>
       <div className=" flex items-center justify-between hover:cursor-pointer  h-16  fixed w-[100%] top-0 z-10">
         <div
-          className="w-[50%] h-[100%] bg-rose-500 flex justify-center items-center border-r-4 rounded-bl-lg "
+          className="w-[50%] h-[100%] bg-rose-500 flex justify-center items-center border-r-4 border-rose-300 rounded-bl-lg "
           onClick={() => setMode("report")}
         >
           <IoStatsChartSharp size={32} color="white" />
@@ -67,12 +67,14 @@ const NavigationBar = ({ data, student,reload,sLoad,eLoad }) => {
       </div>
       {mode === "events" ? (
         <div>
-          <EventList eLoad={eLoad} data={data} reload={reload}/>
-          <div className="flex justify-center relative top-[-50px]">
-          {
-            addLoad||(eLoad[0] && eLoad[1] === "add")?<FadeLoader color="#000" size={32}/>:""
-          }
+          <div className="flex justify-center fixed top-[90px] w-[100%]">
+            {addLoad || (eLoad[0] && eLoad[1] === "add") || false ? (
+              <BarLoader color="#000" width="800px" size={32} />
+            ) : (
+              ""
+            )}
           </div>
+          <EventList eLoad={eLoad} data={data} reload={reload} />
           <AddEvent loadingEvent={handleAddLoad} reload={reload} />
         </div>
       ) : (
