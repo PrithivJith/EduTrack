@@ -10,7 +10,7 @@ const EventList = ({ data,reload }) => {
   return (
     <div className="mb-24">
       <h1 className="!m-6 text-3xl text-center">Events</h1>
-      <ul>
+      <ul >
         {
           data.map((element) => (
             <li key={element._id}>
@@ -20,6 +20,7 @@ const EventList = ({ data,reload }) => {
         }
       </ul>
     </div>
+    
   );
 };
 
