@@ -14,6 +14,10 @@ const eventSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    star: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     timestamps: true, // This adds createdAt and updatedAt fields

@@ -9,7 +9,7 @@ import PieChart from "./PieChart";
 import { MdModeEditOutline } from "react-icons/md";
 import BarChart from "./BarChart";
 import axios from "axios";
-const NavigationBar = ({ data, student }) => {
+const NavigationBar = ({ data, student,reload }) => {
   const [mode, setMode] = useState("events");
   const [edit, setEdit] = useState(false);
   const [positive, setPositive] = useState(student.positive);
@@ -59,8 +59,8 @@ const NavigationBar = ({ data, student }) => {
       </div>
       {mode === "events" ? (
         <div>
-          <EventList data={data} />
-          <AddEvent />
+          <EventList data={data} reload={reload}/>
+          <AddEvent reload={reload} />
         </div>
       ) : (
         <div>

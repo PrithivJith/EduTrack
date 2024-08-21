@@ -40,10 +40,33 @@ const Home = () => {
     return <div>Loading...</div>;
 
   }
+function reload(){
+  axios
+  .get("http://localhost:5555/events/")
+  .then((response) => {
+    setData(response.data);
+    setLoading(false);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    setLoading(false);
+  });
 
+axios
+  .get("http://localhost:5555/students/")
+  .then((response) => {
+    setStudent(response.data[0]);
+    setStudentLoad(false);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    setStudentLoad(false);
+  });
+
+}
   return (
     <div>
-      <NavigationBar data={data} student={student} />
+      <NavigationBar reload={reload} data={data} student={student} />
     </div>
   );
 };

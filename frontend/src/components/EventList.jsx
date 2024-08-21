@@ -1,7 +1,7 @@
 import React from "react";
 import Event from "./Event";
 
-const EventList = ({ data }) => {
+const EventList = ({ data,reload }) => {
   const events = [];
   while (!data) {
     //
@@ -14,7 +14,7 @@ const EventList = ({ data }) => {
         {
           data.map((element) => (
             <li key={element._id}>
-              <Event data={element} defaultEdit={false} />
+              <Event data={element} reload={reload} />
             </li>
           ))
         }

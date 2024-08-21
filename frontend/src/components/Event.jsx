@@ -4,27 +4,23 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { MdDone } from "react-icons/md";
 import axios from "axios";
 
-const Event = ({ data, defaultEdit }) => {
-  const [isStarred, setIsStarred] = useState(false);
-  const [isEdit, setIsEdit] = useState(defaultEdit);
+const Event = ({ data, reload }) => {
+  const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState(data.title);
+
   const [date, setDate] = useState(data.date);
   const [description, setDescription] = useState(data.description);
 
-  const toggleStar = () => {
-    setIsStarred(!isStarred);
-  };
-  async function handleEdit() {
-    if (!title || !description || !date) {
-      return;
-    }
+  async function toggleStar() {
+    
     try {
       const response = await axios.put(
         `http://localhost:5555/events/${data._id}`,
         {
-          title: title,
-          description: description,
-          date: date,
+          title: data.title,
+          description:data. description,
+          date: data.date,
+          star: !data.star,
         },
         {
           headers: {
@@ -34,7 +30,33 @@ const Event = ({ data, defaultEdit }) => {
       );
       console.log("Response:", response.data);
       setIsEdit(false);
-      window.location.reload();
+      reload();
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  };
+  async function handleEdit() {
+    if (!title || !description || !date ) {
+      return;
+    }
+    try {
+      const response = await axios.put(
+        `http://localhost:5555/events/${data._id}`,
+        {
+          title: title,
+          description: description,
+          date: date,
+          star: data.star,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Response:", response.data);
+      setIsEdit(false);
+      reload();
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -48,7 +70,7 @@ const Event = ({ data, defaultEdit }) => {
         `http://localhost:5555/events/${data._id}`
       );
       console.log("Response:", response.data);
-      window.location.reload();
+      reload();
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -83,13 +105,16 @@ const Event = ({ data, defaultEdit }) => {
         {!isEdit ? (
           <h3 className="ml-1">Date: {data.date}</h3>
         ) : (
-          <input
-            required
-            className="ml-4"
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
+          <div>
+            <input
+              required
+              className="ml-4"
+              type="text"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+           
+          </div>
         )}
 
         <div className="flex gap-1">
@@ -105,7 +130,7 @@ const Event = ({ data, defaultEdit }) => {
                 className="hover:cursor-pointer"
                 onClick={toggleEdit}
               />
-              {isStarred ? (
+              {data.star ? (
                 <FaStar
                   size={32}
                   color="hsl(54, 93.00%, 40%)"
@@ -121,7 +146,11 @@ const Event = ({ data, defaultEdit }) => {
               )}
             </div>
           ) : (
-            <MdDone size={32} className="hover:cursor-pointer" onClick={handleEdit} />
+            <MdDone
+              size={32}
+              className="hover:cursor-pointer"
+              onClick={handleEdit}
+            />
           )}
         </div>
       </div>
