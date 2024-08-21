@@ -64,7 +64,7 @@ axios
 
 }
   if(startLoading[0]||startStudentLoad[0]){
-    return <h1>Loading</h1>
+    return <h1>Loading...</h1>
   }
 
   return (

@@ -9,6 +9,7 @@ import PieChart from "./PieChart";
 import { MdModeEditOutline } from "react-icons/md";
 import BarChart from "./BarChart";
 import BarLoader from "react-spinners/BarLoader";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 import axios from "axios";
 const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
@@ -18,17 +19,17 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
   const [positive, setPositive] = useState(student.positive);
   const [negative, setNegative] = useState(student.negative);
   const [attendance, setAttendance] = useState(student.attendance);
-  const [editLoad,setEditLoad] = useState(false)
+  const [editLoad, setEditLoad] = useState(false);
 
   function handleAddLoad(loading) {
     setAddLoad(loading);
   }
 
   async function handleEdit() {
-    if (!positive || !negative || !attendance) {
+    if (!positive === null || !negative === null || !attendance) {
       return;
     }
-    editLoad(true);
+    setEditLoad(true);
     try {
       const response = await axios.put(
         `https://edutackprivate.onrender.com/students/${student._id}`,
@@ -45,13 +46,15 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
       );
       console.log("Response:", response.data);
       setEdit(false);
-      editLoad(false);
+      setEditLoad(false);
+      console.log(editLoad);
       reload();
     } catch (error) {
       console.error("There was an error!", error);
-      editLoad(false);
-    }finally{
-      editLoad(false);
+      setEditLoad(false);
+    } finally {
+      setEditLoad(false);
+      console.log(editLoad);
     }
   }
   return (
@@ -93,8 +96,10 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
                 className="bg-rose-500 hover:cursor-pointer flex items-center justify-center gap-8 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
                 onClick={() => setEdit(true)}
               >
+                <div className="flex gap-4 items-center">
                 <h1 className="text-3xl text-white">Edit student: </h1>
                 <MdModeEditOutline color="white" size={32} />
+                </div>
               </div>
             </div>
           ) : (
@@ -159,8 +164,16 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
                   className="bg-rose-500 hover:cursor-pointer flex items-center justify-center gap-4 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
                   onClick={handleEdit}
                 >
-                  <h1 className="text-3xl text-white">Confirm: </h1>
-                  <MdDone color="white" size={32} />
+                  {editLoad ? (
+                    <div>
+                      <PropagateLoader color="white" />
+                    </div>
+                  ) : (
+                    <div className="flex gap-4 items-center">
+                      <h1 className="text-3xl text-white">Confirm: </h1>
+                      <MdDone color="white" size={32} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

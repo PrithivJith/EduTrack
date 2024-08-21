@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/", async (request, response) => {
     try {
-        if (!request.body.positive || !request.body.negative || !request.body.attendance){
+        if (!request.body.positive === null || !request.body.negative === null || !request.body.attendance === null){
             return response.status(400).send({
                 message: "Send all required fields",
             });
