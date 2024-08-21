@@ -18,6 +18,7 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
   const [positive, setPositive] = useState(student.positive);
   const [negative, setNegative] = useState(student.negative);
   const [attendance, setAttendance] = useState(student.attendance);
+  const [editLoad,setEditLoad] = useState(false)
 
   function handleAddLoad(loading) {
     setAddLoad(loading);
@@ -27,6 +28,7 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
     if (!positive || !negative || !attendance) {
       return;
     }
+    editLoad(true);
     try {
       const response = await axios.put(
         `https://edutackprivate.onrender.com/students/${student._id}`,
@@ -43,9 +45,13 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
       );
       console.log("Response:", response.data);
       setEdit(false);
+      editLoad(false);
       reload();
     } catch (error) {
       console.error("There was an error!", error);
+      editLoad(false);
+    }finally{
+      editLoad(false);
     }
   }
   return (
@@ -67,7 +73,7 @@ const NavigationBar = ({ data, student, reload, sLoad, eLoad }) => {
       </div>
       {mode === "events" ? (
         <div>
-          <div className="flex justify-center fixed top-[90px] w-[100%]">
+          <div className="flex justify-center fixed top-[72px] w-[100%]">
             {addLoad || (eLoad[0] && eLoad[1] === "add") || false ? (
               <BarLoader color="#000" width="800px" size={32} />
             ) : (
