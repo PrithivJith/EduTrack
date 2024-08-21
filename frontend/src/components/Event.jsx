@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
 import { MdDelete, MdEdit, MdDone } from "react-icons/md";
 import axios from "axios";
-import SyncLoader from "react-spinners/SyncLoader";
+import BarLoader from "react-spinners/BarLoader";
 
-const Event = ({ data, reload,eLoad }) => {
+const Event = ({ data, reload, eLoad }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [date, setDate] = useState(data.date);
   const [description, setDescription] = useState(data.description);
-  const [loading, setLoading] = useState(false); 
+  const [starLoading, setStarLoading] = useState(false);
+  const [delLoading, setDelLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
 
   async function toggleStar() {
-    setLoading(true); 
+    setStarLoading(true);
     try {
       const response = await axios.put(
         `https://edutackprivate.onrender.com/events/${data._id}`,
@@ -34,7 +36,7 @@ const Event = ({ data, reload,eLoad }) => {
     } catch (error) {
       console.error("There was an error!", error);
     } finally {
-      setLoading(false);
+      setStarLoading(false);
     }
   }
 
@@ -42,6 +44,7 @@ const Event = ({ data, reload,eLoad }) => {
     if (!title || !description || !date) {
       return;
     }
+    setEditLoading(true);
     try {
       const response = await axios.put(
         `https://edutackprivate.onrender.com/events/${data._id}`,
@@ -59,9 +62,11 @@ const Event = ({ data, reload,eLoad }) => {
       );
       console.log("Response:", response.data);
       setIsEdit(false);
-      reload();
+      reload(data._id);
     } catch (error) {
       console.error("There was an error!", error);
+    } finally {
+      setEditLoading(false);
     }
   }
 
@@ -70,14 +75,17 @@ const Event = ({ data, reload,eLoad }) => {
   };
 
   async function del() {
+    setDelLoading(true);
     try {
       const response = await axios.delete(
         `https://edutackprivate.onrender.com/events/${data._id}`
       );
       console.log("Response:", response.data);
-      reload();
+      reload(data._id);
     } catch (error) {
       console.error("There was an error!", error);
+    } finally {
+      setDelLoading(false);
     }
   }
 
@@ -123,41 +131,45 @@ const Event = ({ data, reload,eLoad }) => {
         )}
 
         <div className="flex gap-1">
-          {!isEdit ? (
-            <div className="flex items-center">
-              <MdDelete
-                size={32}
-                className="hover:cursor-pointer"
-                onClick={del}
-              />
-              <MdEdit
-                size={32}
-                className="hover:cursor-pointer"
-                onClick={toggleEdit}
-              />
-              {((eLoad)||loading) ? (
-                <SyncLoader size={10} color="#000" />
-              ) : data.star ? (
-                <FaStar
-                  size={32}
-                  color="hsl(54, 93.00%, 40%)"
-                  onClick={toggleStar}
-                  className="hover:cursor-pointer"
-                />
+          {(eLoad[0] && eLoad[1] === data._id) || starLoading||delLoading||editLoading ? (
+            <BarLoader size={10} color="#000" />
+          ) : (
+            <div>
+              {!isEdit ? (
+                <div className="flex items-center">
+                  <MdDelete
+                    size={32}
+                    className="hover:cursor-pointer"
+                    onClick={del}
+                  />
+                  <MdEdit
+                    size={32}
+                    className="hover:cursor-pointer"
+                    onClick={toggleEdit}
+                  />
+                  {data.star ? (
+                  <FaStar
+                    size={32}
+                    color="hsl(54, 93.00%, 40%)"
+                    onClick={toggleStar}
+                    className="hover:cursor-pointer"
+                  />
+                  ) : (
+                  <FaRegStar
+                    className="hover:cursor-pointer"
+                    size={32}
+                    onClick={toggleStar}
+                  />
+                  )}
+                </div>
               ) : (
-                <FaRegStar
-                  className="hover:cursor-pointer"
+                <MdDone
                   size={32}
-                  onClick={toggleStar}
+                  className="hover:cursor-pointer"
+                  onClick={handleEdit}
                 />
               )}
             </div>
-          ) : (
-            <MdDone
-              size={32}
-              className="hover:cursor-pointer"
-              onClick={handleEdit}
-            />
           )}
         </div>
       </div>

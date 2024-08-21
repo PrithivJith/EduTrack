@@ -10,27 +10,30 @@ const Home = () => {
   const [loading, setLoading] = useState([true,""]);
   const [studentLoad, setStudentLoad] = useState([true,""])
 
+  const [startLoading, setStartLoading] = useState([true,""]);
+  const [startStudentLoad, setStartStudentLoad] = useState([true,""])
+
   useEffect(() => {
     axios
       .get("https://edutackprivate.onrender.com/events/")
       .then((response) => {
         setData(response.data);
-        setLoading([false,""]);
+        setStartLoading([false,""]);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setLoading([false,""]);
+        startStudentLoad([false,""]);
       });
 
     axios
       .get("https://edutackprivate.onrender.com/students/")
       .then((response) => {
         setStudent(response.data[0]);
-        setStudentLoad([false,""]);
+        setStartStudentLoad([false,""]);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setStudentLoad([false,""]);
+        setStartStudentLoad([false,""]);
       });
   }, []);
 
@@ -45,21 +48,25 @@ function reload(id){
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
-    setLoading(false);
+    setLoading([false,id]);
   });
 
 axios
   .get("https://edutackprivate.onrender.com/students/")
   .then((response) => {
     setStudent(response.data[0]);
-    setStudentLoad(false);
+    setStudentLoad([false,id]);
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
-    setStudentLoad(false);
+    setStudentLoad([false,id]);
   });
 
 }
+  if(startLoading[0]||startStudentLoad[0]){
+    return <h1>Loading</h1>
+  }
+
   return (
     <div>
       <NavigationBar reload={reload} sLoad={studentLoad} eLoad={loading} data={data} student={student} />
