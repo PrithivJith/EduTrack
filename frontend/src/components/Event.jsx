@@ -95,20 +95,33 @@ const Event = ({ data, defaultEdit }) => {
         <div className="flex gap-1">
           {!isEdit ? (
             <div className="flex">
-              <MdDelete size={32} onClick={del} />
-              <MdEdit size={32} onClick={toggleEdit} />
+              <MdDelete
+                size={32}
+                className="hover:cursor-pointer"
+                onClick={del}
+              />
+              <MdEdit
+                size={32}
+                className="hover:cursor-pointer"
+                onClick={toggleEdit}
+              />
               {isStarred ? (
                 <FaStar
                   size={32}
                   color="hsl(54, 93.00%, 40%)"
                   onClick={toggleStar}
+                  className="hover:cursor-pointer"
                 />
               ) : (
-                <FaRegStar size={32} onClick={toggleStar} />
+                <FaRegStar
+                  className="hover:cursor-pointer"
+                  size={32}
+                  onClick={toggleStar}
+                />
               )}
             </div>
           ) : (
-            <MdDone size={32} onClick={handleEdit} />
+            <MdDone size={32} className="hover:cursor-pointer" onClick={handleEdit} />
           )}
         </div>
       </div>

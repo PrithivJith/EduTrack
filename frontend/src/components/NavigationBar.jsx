@@ -42,7 +42,7 @@ const NavigationBar = ({ data, student }) => {
   }
   return (
     <>
-      <div className=" flex items-center justify-between  h-16  fixed w-[100%] top-0 z-10">
+      <div className=" flex items-center justify-between hover:cursor-pointer  h-16  fixed w-[100%] top-0 z-10">
         <div
           className="w-[50%] h-[100%] bg-rose-500 flex justify-center items-center border-r-4 rounded-bl-lg "
           onClick={() => setMode("report")}
@@ -69,7 +69,7 @@ const NavigationBar = ({ data, student }) => {
               <PieChart student={student} />
               <BarChart student={student} />
               <div
-                className="bg-rose-500 flex items-center justify-center gap-8 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
+                className="bg-rose-500 hover:cursor-pointer flex items-center justify-center gap-8 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
                 onClick={() => setEdit(true)}
               >
                 <h1 className="text-3xl text-white">Edit student: </h1>
@@ -135,7 +135,7 @@ const NavigationBar = ({ data, student }) => {
                   onChange={(e) => setAttendance(e.target.value)}
                 />
                 <div
-                  className="bg-rose-500 flex items-center justify-center gap-4 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
+                  className="bg-rose-500 hover:cursor-pointer flex items-center justify-center gap-4 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]"
                   onClick={handleEdit}
                 >
                   <h1 className="text-3xl text-white">Confirm: </h1>

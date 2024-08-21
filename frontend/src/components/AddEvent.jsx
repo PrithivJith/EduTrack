@@ -27,7 +27,7 @@ const AddEvent = () => {
 
   return (
     <div>
-      <div className="bg-rose-500 flex items-center justify-center gap-4 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]" onClick={add}>
+      <div className="bg-rose-500 hover:cursor-pointer flex items-center justify-center gap-4 h-16 rounded-tl-lg rounded-tr-lg fixed w-[100%] bottom-[0vh]" onClick={add}>
         <IoMdAddCircleOutline color="white" size={64} />
       </div>
     </div>
