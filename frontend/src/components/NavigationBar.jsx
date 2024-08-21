@@ -8,14 +8,21 @@ import { MdDone } from "react-icons/md";
 import PieChart from "./PieChart";
 import { MdModeEditOutline } from "react-icons/md";
 import BarChart from "./BarChart";
+import FadeLoader from "react-spinners/FadeLoader";
+
 import axios from "axios";
 const NavigationBar = ({ data, student,reload,sLoad,eLoad }) => {
   const [mode, setMode] = useState("events");
   const [edit, setEdit] = useState(false);
-  
+  const [addLoad,setAddLoad] = useState(false);
   const [positive, setPositive] = useState(student.positive);
   const [negative, setNegative] = useState(student.negative);
   const [attendance, setAttendance] = useState(student.attendance);
+
+  function handleAddLoad(loading){
+    setAddLoad(loading);
+  }
+
   async function handleEdit() {
     if (!positive || !negative || !attendance) {
       return;
@@ -61,7 +68,12 @@ const NavigationBar = ({ data, student,reload,sLoad,eLoad }) => {
       {mode === "events" ? (
         <div>
           <EventList eLoad={eLoad} data={data} reload={reload}/>
-          <AddEvent reload={reload} />
+          <div className="flex justify-center relative top-[-50px]">
+          {
+            addLoad||(eLoad[0] && eLoad[1] === "add")?<FadeLoader color="#000" size={32}/>:""
+          }
+          </div>
+          <AddEvent loadingEvent={handleAddLoad} reload={reload} />
         </div>
       ) : (
         <div>

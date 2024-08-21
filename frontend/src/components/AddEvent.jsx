@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import axios from "axios";
-const AddEvent = ({ reload }) => {
+
+const AddEvent = ({ reload,loadingEvent }) => {
+  const [loading, setLoading] = useState(false);
+  useEffect(()=>{
+    loadingEvent(loading);
+  },[loading])
   async function add() {
+    setLoading(true);
     try {
       const response = await axios.post(
         `https://edutackprivate.onrender.com/events/`,
@@ -19,9 +25,13 @@ const AddEvent = ({ reload }) => {
         }
       );
       console.log("Response:", response.data);
-      reload();
+      setLoading(false);
+      reload("add");
     } catch (error) {
       console.error("There was an error!", error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   }
 
