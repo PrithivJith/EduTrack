@@ -11,7 +11,7 @@ const AddEvent = ({ reload,loadingEvent }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://edutackprivate.onrender.com/events/`,
+        `http://localhost:5555/events/`,
         {
           title: "Enter Title",
           description: "Enter Description",

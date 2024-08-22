@@ -1,6 +1,8 @@
 import express, { request, response } from "express";
 import mongoose from "mongoose";
-import { PORT, mongoDBURL } from "./config.js";
+import dotenv from "dotenv"
+dotenv.config()
+import { PORT } from "./config.js";
 import { Event } from "./models/eventModel.js";
 import eventRoute from "./routes/eventRoute.js";
 import studentRoute from "./routes/studentRoute.js"
@@ -8,6 +10,7 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
+const mongoDBURL = process.env.mongoDBURL;
 
 app.use(cors());
 // app.use(cors({

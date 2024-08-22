@@ -17,7 +17,7 @@ const Event = ({ data, reload, eLoad }) => {
     setStarLoading(true);
     try {
       const response = await axios.put(
-        `https://edutackprivate.onrender.com/events/${data._id}`,
+        `http://localhost:5555/events/${data._id}`,
         {
           title: data.title,
           description: data.description,
@@ -47,7 +47,7 @@ const Event = ({ data, reload, eLoad }) => {
     setEditLoading(true);
     try {
       const response = await axios.put(
-        `https://edutackprivate.onrender.com/events/${data._id}`,
+        `http://localhost:5555/events/${data._id}`,
         {
           title: title,
           description: description,
@@ -78,7 +78,7 @@ const Event = ({ data, reload, eLoad }) => {
     setDelLoading(true);
     try {
       const response = await axios.delete(
-        `https://edutackprivate.onrender.com/events/${data._id}`
+        `http://localhost:5555/events/${data._id}`
       );
       console.log("Response:", response.data);
       reload(data._id);
