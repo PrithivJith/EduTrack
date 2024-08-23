@@ -7,6 +7,7 @@ import { Event } from "./models/eventModel.js";
 import eventRoute from "./routes/eventRoute.js";
 import studentRoute from "./routes/studentRoute.js"
 import cors from "cors";
+import loginRoute from "./routes/loginRoute.js"
 
 const app = express();
 app.use(express.json());
@@ -20,10 +21,12 @@ app.use(cors());
 
 app.get("/", (request, response) => {
     console.log(request);
-    return response.status(200).send("Hello.");
+    return response.status(200).send("This is api home.");
 });
 app.use("/events", eventRoute);
 app.use("/students", studentRoute);
+app.use("/user", loginRoute);
+
 
 
 mongoose

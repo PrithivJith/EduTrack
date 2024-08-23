@@ -132,7 +132,7 @@ const Event = ({ data, reload, eLoad }) => {
 
         <div className="flex gap-1">
           {(eLoad[0] && eLoad[1] === data._id) || starLoading||delLoading||editLoading ? (
-            <BarLoader size={10} color="#000" />
+            <BarLoader className="mb-3" size={10} color="#000" />
           ) : (
             <div>
               {!isEdit ? (
