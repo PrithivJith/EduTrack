@@ -48,7 +48,7 @@ const Login = ({styles}) => {
         <button type="submit" className="text-xl w-[80%] rounded-md bg-rose-500 p-[0.7rem]  text-white">
         Login
         </button>
-        <p className="text-lg mt-5"><span className="text-rose-700 font-[650]">Don't have an account?  </span><Link to="/login"><span className="hover:cursor-pointer hover:underline text-blue-900 font-[550]">Sign Up</span></Link></p>
+        <p className="text-lg mt-5"><span className="text-rose-700 font-[650]">Don't have an account?  </span><Link to="/signup"><span className="hover:cursor-pointer hover:underline text-blue-900 font-[550]">Sign Up</span></Link></p>
 
       </form>
     </div>
