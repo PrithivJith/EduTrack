@@ -5,17 +5,17 @@ const Login = ({styles}) => {
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    
   };
   return (
-    <div className={styles+" "+"w-[92%] max-w-[1000px] shadow-lg m-3 lg:pl-2 md:pr-2 pb-20 pt-10 bg-rose-100  rounded-md"}>
+    <div className={styles+" "+"w-[92%] max-w-[1000px] shadow-lg m-3 lg:pl-2 md:pr-2 pb-16 pt-10 bg-rose-100  rounded-md"}>
       <form
         className="login flex justify-start  flex-col gap-10 items-center"
         onSubmit={handleSubmit}
       >
         <h3 className="text-4xl">Log in</h3>
         <div className=" flex flex-wrap justify-center gap-2 w-[80%]">
-          <label for="username" className="text-2xl hidden">
+          <label htmlFor="username" className="text-2xl hidden">
             Username:{" "}
           </label>
           <input
@@ -32,7 +32,7 @@ const Login = ({styles}) => {
         </div>
         <div className=" flex flex-wrap justify-center w-[80%] gap-2">
 
-          <label for="password" className="text-2xl hidden">
+          <label htmlFor="password" className="text-2xl hidden">
             &nbsp;Password:{" "}
           </label>
           <input
