@@ -8,7 +8,7 @@ const Signup = () => {
     console.log(email, password);
   };
   return (
-    <div className="relative top-20">
+    <div>
       <form
         className="signup flex justify-start flex-col gap-10 items-center"
         onSubmit={handleSubmit}
