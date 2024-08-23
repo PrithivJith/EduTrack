@@ -133,7 +133,9 @@ const App = () => {
               element={
                 <div>
                   <NavigationBar />
-                  <Signup />
+                  <div className="flex justify-center ">
+                    <Signup styles="relative top-20" />
+                  </div>
                 </div>
               }
             ></Route>
