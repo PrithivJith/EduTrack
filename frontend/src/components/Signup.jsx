@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 const Signup = ({styles}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,12 +8,12 @@ const Signup = ({styles}) => {
     console.log(email, password);
   };
   return (
-    <div className={styles+" "+"w-[92%] shadow-lg m-3 p-10 bg-rose-100 rounded-sm"}>
+    <div className={styles+" "+"w-[92%] max-w-[1000px] shadow-lg m-3 lg:pl-2 md:pr-2 pb-20 pt-10 bg-rose-100  rounded-md"}>
       <form
         className="signup flex justify-start  flex-col gap-10 items-center"
         onSubmit={handleSubmit}
       >
-        <h3 className="text-4xl">Sign up to EduTrack</h3>
+        <h3 className="text-4xl">Sign up</h3>
         <div className=" flex flex-wrap justify-center gap-2 w-[80%]">
           <label for="username" className="text-2xl hidden">
             Username:{" "}
@@ -48,6 +48,7 @@ const Signup = ({styles}) => {
         <button type="submit" className="text-xl w-[80%] rounded-md bg-rose-500 p-[0.7rem]  text-white">
           Signup
         </button>
+      <p className="text-lg mt-5"><span className="text-rose-700 font-[650]">Already have an account?  </span><Link to="/login"><span className="hover:cursor-pointer hover:underline text-blue-900 font-[550]">Login</span></Link></p>
       </form>
     </div>
   );

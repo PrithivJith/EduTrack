@@ -6,7 +6,7 @@ import Reports from "./components/Reports";
 import axios from "axios";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Test from "./components/Test";
+import { FaUserShield } from "react-icons/fa";
 import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
@@ -124,7 +124,12 @@ const App = () => {
               element={
                 <div>
                   <NavigationBar />
-                  <Login />
+
+                  <div className="flex justify-center flex-col items-center relative top-20">
+                    <FaUserShield className="ml-8 " color="#881337" size={150} />
+                    <Login />
+                    
+                  </div>
                 </div>
               }
             ></Route>
@@ -133,8 +138,11 @@ const App = () => {
               element={
                 <div>
                   <NavigationBar />
-                  <div className="flex justify-center ">
-                    <Signup styles="relative top-20" />
+
+                  <div className="flex justify-center flex-col items-center relative top-20">
+                    <FaUserShield className="ml-8 " color="#881337" size={150} />
+
+                    <Signup />
                   </div>
                 </div>
               }
