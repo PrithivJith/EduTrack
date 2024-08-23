@@ -4,6 +4,10 @@ import Home from "./Home";
 import Events from "./components/Events";
 import Reports from "./components/Reports";
 import axios from "axios";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Test from "./components/Test";
+import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -87,8 +91,6 @@ const App = () => {
                 />
               }
             ></Route>
-          </Routes>
-          <Routes>
             <Route
               path="/events"
               element={
@@ -101,8 +103,6 @@ const App = () => {
                 </div>
               }
             ></Route>
-          </Routes>
-          <Routes>
             <Route
               path="/reports"
               element={
@@ -116,6 +116,24 @@ const App = () => {
                     reload={reload}
                     sLoad={studentLoad}
                   />
+                </div>
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <div>
+                  <NavigationBar />
+                  <Login />
+                </div>
+              }
+            ></Route>
+            <Route
+              path="/signup"
+              element={
+                <div>
+                  <NavigationBar />
+                  <Signup />
                 </div>
               }
             ></Route>
