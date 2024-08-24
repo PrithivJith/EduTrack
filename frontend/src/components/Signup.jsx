@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignUp";
 import { IoMdClose } from "react-icons/io";
+import { FaUserShield } from "react-icons/fa";
 
 const Signup = ({ styles }) => {
   const [email, setEmail] = useState("");
@@ -17,9 +18,12 @@ const Signup = ({ styles }) => {
       className={
         styles +
         " " +
-        "w-[92%] max-w-[1000px] shadow-lg m-3 lg:pl-2 md:pr-2 pb-16 pt-10 bg-rose-100  rounded-md"
+        "w-[92%] max-w-[1000px] relative top-20 shadow-lg m-3 lg:pl-2 md:pr-2 pb-16 pt-10 bg-rose-100  rounded-md"
       }
     >
+      <div className="flex justify-center flex-col items-center  ">
+        <FaUserShield className="ml-8" color="#881337" size={150} />
+      </div>
       <form
         className="signup flex justify-start  flex-col gap-10 items-center"
         onSubmit={handleSubmit}
@@ -71,7 +75,12 @@ const Signup = ({ styles }) => {
             </span>
           </Link>
         </p>
-        {error && (<div className="flex items-center"><IoMdClose size={20} color="red"/><p>{error}</p></div>)}
+        {error && (
+          <div className="flex items-center">
+            <IoMdClose size={22} color="red" />
+            <p>{error}</p>
+          </div>
+        )}
       </form>
     </div>
   );

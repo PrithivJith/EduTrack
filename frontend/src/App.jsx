@@ -6,8 +6,6 @@ import Reports from "./components/Reports";
 import axios from "axios";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { FaUserShield } from "react-icons/fa";
-import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -123,13 +121,11 @@ const App = () => {
               path="/login"
               element={
                 <div>
-                  <NavigationBar />
-
-                  <div className="flex justify-center flex-col items-center relative top-20">
-                    <FaUserShield className="ml-8 " color="#881337" size={150} />
-                    <Login />
-                    
-                  </div>
+                  <Home
+                    startStudentLoad={startStudentLoad}
+                    startLoading={startLoading}
+                  />
+                  <Login />
                 </div>
               }
             ></Route>
@@ -137,13 +133,12 @@ const App = () => {
               path="/signup"
               element={
                 <div>
-                  <NavigationBar />
+                  <Home
+                    startStudentLoad={startStudentLoad}
+                    startLoading={startLoading}
+                  />
 
-                  <div className="flex justify-center flex-col items-center relative top-20">
-                    <FaUserShield className="ml-8 " color="#881337" size={150} />
-
-                    <Signup />
-                  </div>
+                  <Signup />
                 </div>
               }
             ></Route>
