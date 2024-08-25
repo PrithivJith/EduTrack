@@ -82,7 +82,7 @@ const App = () => {
     } else {
       setStartLoading([false, ""]);
       setStartStudentLoad([false, ""]);
-      //navigate("/login");
+      navigate("/login");
     }
   }, [user]);
 
@@ -150,7 +150,7 @@ const App = () => {
     } else {
       setLoading([false, ""]);
       setStudentLoad([false, ""]);
-      //navigate("/login");
+      navigate("/login");
     }
   }
   if (startLoading[0] || startStudentLoad[0]) {
