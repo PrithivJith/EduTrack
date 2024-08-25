@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, BrowserRouter, Routes, useNavigate } from "react-router-dom";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import Home from "./Home";
 import Events from "./components/Events";
 import Reports from "./components/Reports";
@@ -11,7 +11,6 @@ import { useAuthContext } from "./hooks/useAuthContext";
 const App = () => {
   const [data, setData] = useState(null);
   const [student, setStudent] = useState(null);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState([false, ""]);
   const [studentLoad, setStudentLoad] = useState([false, ""]);
 
@@ -82,7 +81,6 @@ const App = () => {
     } else {
       setStartLoading([false, ""]);
       setStartStudentLoad([false, ""]);
-      navigate("/login");
     }
   }, [user]);
 
@@ -150,7 +148,6 @@ const App = () => {
     } else {
       setLoading([false, ""]);
       setStudentLoad([false, ""]);
-      navigate("/login");
     }
   }
   if (startLoading[0] || startStudentLoad[0]) {
@@ -169,7 +166,9 @@ const App = () => {
           <Route
             path="/"
             element={
-              !user ? null : (
+              !user ? (
+                <Navigate to="/login" />
+              ) : (
                 <Home
                   startStudentLoad={startStudentLoad}
                   startLoading={startLoading}
@@ -180,18 +179,25 @@ const App = () => {
           <Route
             path="/events"
             element={
-              <div>
-                <Home
-                  startStudentLoad={startStudentLoad}
-                  startLoading={startLoading}
-                />
-                <Events data={data} eLoad={loading} reload={reload} />
-              </div>
+              !user ? (
+                <Navigate to="/login" />
+              ) : (
+                <div>
+                  <Home
+                    startStudentLoad={startStudentLoad}
+                    startLoading={startLoading}
+                  />
+                  <Events data={data} eLoad={loading} reload={reload} />
+                </div>
+              )
             }
           ></Route>
           <Route
             path="/reports"
             element={
+              !user ? (
+                <Navigate to="/login" />
+              ) :(
               <div>
                 <Home
                   startStudentLoad={startStudentLoad}
@@ -202,7 +208,7 @@ const App = () => {
                   reload={reload}
                   sLoad={studentLoad}
                 />
-              </div>
+              </div>)
             }
           ></Route>
           <Route
