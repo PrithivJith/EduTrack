@@ -56,7 +56,7 @@ const Reports = ({ student, reload, sLoad }) => {
   return (
     <div>
       <div className="relative top-20">
-      {student.user_id}
+      
       </div>
       <div>
         {!edit ? (

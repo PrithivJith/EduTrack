@@ -19,13 +19,14 @@ const App = () => {
   const [startStudentLoad, setStartStudentLoad] = useState([true, ""]);
 
   const { user } = useAuthContext();
+
   useEffect(() => {
     if (user) {
       axios
         .get("http://localhost:5555/events/", {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         })
         .then((response) => {
@@ -44,7 +45,33 @@ const App = () => {
             Authorization: `Bearer ${user.token}`,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
+          const userId = user.user_id;
+          if (response.data.length === 0) {
+            try {
+              const response = await axios.post(
+                `http://localhost:5555/students/`,
+                {
+                  positive: 10,
+                  negative: 20,
+                  attendance: "90,90,75,20,90,95,85,75,70,364,100",
+                  user_id: userId,
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                  },
+                }
+              );
+
+              console.log(response);
+              reload("add");
+            } catch (error) {
+              console.log(error);
+            } finally {
+            }
+          }
           setStudent(response.data[0]);
           setStartStudentLoad([false, ""]);
         })
@@ -86,7 +113,33 @@ const App = () => {
             Authorization: `Bearer ${user.token}`,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
+          const userId = user.user_id;
+          if (response.data.length === 0) {
+            try {
+              const response = await axios.post(
+                `http://localhost:5555/students/`,
+                {
+                  positive: 10,
+                  negative: 20,
+                  attendance: "90,90,75,20,90,95,85,75,70,364,100",
+                  user_id: userId,
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                  },
+                }
+              );
+
+              console.log(response);
+              reload("add");
+            } catch (error) {
+              console.log(error);
+            } finally {
+            }
+          }
           setStudent(response.data[0]);
           setStudentLoad([false, id]);
         })

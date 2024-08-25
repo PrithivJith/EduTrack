@@ -101,7 +101,7 @@ const Event = ({ data, reload, eLoad }) => {
   return (
     <div className="bg-rose-100 min-h-[200px] m-4 rounded-md shadow-lg p-4 flex flex-col justify-between">
       <div className="flex flex-col">
-        <p>{data.user_id}</p>  
+        
         {!isEdit ? (
           <h2 className="text-3xl text-center underline">{data.title}</h2>
         ) : (
