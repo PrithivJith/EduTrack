@@ -1,22 +1,16 @@
 import express, { request, response } from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv"
+dotenv.config()
 import { PORT } from "./config.js";
+import { Event } from "./models/eventModel.js";
 import eventRoute from "./routes/eventRoute.js";
-import studentRoute from "./routes/studentRoute.js";
+import studentRoute from "./routes/studentRoute.js"
 import cors from "cors";
-import loginRoute from "./routes/loginRoute.js";
-import rateLimiter from "express-rate-limit";
-
+import loginRoute from "./routes/loginRoute.js"
 
 const app = express();
 app.use(express.json());
-const limiter = rateLimiter({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-app.use(limiter);
 const mongoDBURL = process.env.mongoDBURL;
 
 app.use(cors());
@@ -26,22 +20,24 @@ app.use(cors());
 // }))
 
 app.get("/", (request, response) => {
-  console.log(request);
-  return response.status(200).send("This is api home.");
+    console.log(request);
+    return response.status(200).send("This is api home.");
 });
 app.use("/events", eventRoute);
 app.use("/students", studentRoute);
 app.use("/user", loginRoute);
 
+
+
 mongoose
-  .connect(mongoDBURL)
-  .then(() => {
-    console.log("App connected to db.");
-    app.listen(PORT, () => {
-      console.log("Server is listening...");
+    .connect(mongoDBURL)
+    .then(() => {
+        console.log("App connected to db.");
+        app.listen(PORT, () => {
+            console.log("Server is listening...");
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+        console.log("failed");
     });
-  })
-  .catch((error) => {
-    console.log(error);
-    console.log("failed");
-  });
