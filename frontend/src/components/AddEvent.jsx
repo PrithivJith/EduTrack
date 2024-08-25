@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
-const AddEvent = ({ reload,loadingEvent }) => {
+const AddEvent = ({ reload, loadingEvent }) => {
   const [loading, setLoading] = useState(false);
-  const {user} = useAuthContext();
-  useEffect(()=>{
+  const { user } = useAuthContext();
+  const userId = user.user_id;
+
+  useEffect(() => {
     loadingEvent(loading);
-  },[loading])
+  }, [loading]);
+
   async function add() {
     setLoading(true);
     try {
+
       const response = await axios.post(
         `http://localhost:5555/events/`,
         {
@@ -18,11 +22,12 @@ const AddEvent = ({ reload,loadingEvent }) => {
           description: "Enter Description",
           date: "Enter Date",
           star: false,
+          user_id: userId,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
+            "Authorization": `Bearer ${user.token}`,
           },
         }
       );

@@ -105,7 +105,7 @@ const Signup = ({ styles }) => {
               disabled={isLoading}
               onClick={logoutHandle}
               type="submit"
-              className="text-xl mt-20 w-[80%] rounded-md bg-red-600 p-[0.7rem]  text-white"
+              className="text-xl mt-10 w-[80%] rounded-md bg-red-600 p-[0.7rem]  text-white"
             >
               Log Out
             </button>

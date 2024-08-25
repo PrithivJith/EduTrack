@@ -10,6 +10,7 @@ import { IoMdClose } from "react-icons/io";
 const Login = ({ styles }) => {
   const { login, error, isLoading } = useLogin("");
   const { user } = useAuthContext();
+  console.log(user)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logout } = useLogout();
@@ -105,7 +106,7 @@ const Login = ({ styles }) => {
               disabled={isLoading}
               onClick={logoutHandle}
               type="submit"
-              className="text-xl mt-20 w-[80%] rounded-md bg-red-600 p-[0.7rem]  text-white"
+              className="text-xl mt-10 w-[80%] rounded-md bg-red-600 p-[0.7rem]  text-white"
             >
               Log Out
             </button>

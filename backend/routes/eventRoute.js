@@ -1,6 +1,6 @@
 import express from "express";
 import { Event } from "../models/eventModel.js";
-import {requireAuth} from "../middleware/requireAuth.js"
+import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 router.use(requireAuth);
@@ -26,11 +26,14 @@ router.post("/", async (request, response) => {
         message: "Send all required fields",
       });
     }
+    const user_id = request.user._id;
+
     const newEvent = {
       date: request.body.date,
       title: request.body.title,
       description: request.body.description,
       star: request.body.star,
+      user_id: user_id,
     };
     const event = await Event.create(newEvent);
     return response.status(201).send(event);
@@ -41,7 +44,8 @@ router.post("/", async (request, response) => {
 });
 router.get("/", async (request, response) => {
   try {
-    const events = await Event.find({});
+    const user_id = request.user._id;
+    const events = await Event.find({user_id});
     return response.status(200).json(events);
   } catch (error) {
     console.log(error.message);

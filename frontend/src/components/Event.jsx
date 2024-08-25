@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { MdDelete, MdEdit, MdDone } from "react-icons/md";
 import axios from "axios";
 import BarLoader from "react-spinners/BarLoader";
@@ -14,10 +14,11 @@ const Event = ({ data, reload, eLoad }) => {
   const [delLoading, setDelLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
   const { user } = useAuthContext();
-
+  const userId = user.user_id;
   async function toggleStar() {
     setStarLoading(true);
     try {
+      
       const response = await axios.put(
         `http://localhost:5555/events/${data._id}`,
         {
@@ -25,6 +26,7 @@ const Event = ({ data, reload, eLoad }) => {
           description: data.description,
           date: data.date,
           star: !data.star,
+          user: userId
         },
         {
           headers: {
@@ -99,6 +101,7 @@ const Event = ({ data, reload, eLoad }) => {
   return (
     <div className="bg-rose-100 min-h-[200px] m-4 rounded-md shadow-lg p-4 flex flex-col justify-between">
       <div className="flex flex-col">
+        <p>{data.user_id}</p>  
         {!isEdit ? (
           <h2 className="text-3xl text-center underline">{data.title}</h2>
         ) : (

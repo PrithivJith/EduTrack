@@ -18,6 +18,10 @@ const eventSchema = mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    user_id:{
+      type:String,
+      required:true,
+    }
   },
   {
     timestamps: true, // This adds createdAt and updatedAt fields

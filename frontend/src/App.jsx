@@ -25,7 +25,7 @@ const App = () => {
         .get("http://localhost:5555/events/", {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
+            "Authorization": `Bearer ${user.token}`,
           },
         })
         .then((response) => {
@@ -38,7 +38,12 @@ const App = () => {
         });
 
       axios
-        .get("http://localhost:5555/students/")
+        .get("http://localhost:5555/students/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((response) => {
           setStudent(response.data[0]);
           setStartStudentLoad([false, ""]);
@@ -75,7 +80,12 @@ const App = () => {
         });
 
       axios
-        .get("http://localhost:5555/students/")
+        .get("http://localhost:5555/students/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((response) => {
           setStudent(response.data[0]);
           setStudentLoad([false, id]);
@@ -101,77 +111,74 @@ const App = () => {
 
   return (
     <div className="App">
-        <div className="pages">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                !user ? (
-                  null
-                ) : (
-                  <Home
-                    startStudentLoad={startStudentLoad}
-                    startLoading={startLoading}
-                  />
-                )
-              }
-            ></Route>
-            <Route
-              path="/events"
-              element={
-                <div>
-                  <Home
-                    startStudentLoad={startStudentLoad}
-                    startLoading={startLoading}
-                  />
-                  <Events data={data} eLoad={loading} reload={reload} />
-                </div>
-              }
-            ></Route>
-            <Route
-              path="/reports"
-              element={
-                <div>
-                  <Home
-                    startStudentLoad={startStudentLoad}
-                    startLoading={startLoading}
-                  />
-                  <Reports
-                    student={student}
-                    reload={reload}
-                    sLoad={studentLoad}
-                  />
-                </div>
-              }
-            ></Route>
-            <Route
-              path="/login"
-              element={
-                <div>
-                  <Home
-                    startStudentLoad={startStudentLoad}
-                    startLoading={startLoading}
-                  />
-                  <Login />
-                </div>
-              }
-            ></Route>
-            <Route
-              path="/signup"
-              element={
-                <div>
-                  <Home
-                    startStudentLoad={startStudentLoad}
-                    startLoading={startLoading}
-                  />
+      <div className="pages">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !user ? null : (
+                <Home
+                  startStudentLoad={startStudentLoad}
+                  startLoading={startLoading}
+                />
+              )
+            }
+          ></Route>
+          <Route
+            path="/events"
+            element={
+              <div>
+                <Home
+                  startStudentLoad={startStudentLoad}
+                  startLoading={startLoading}
+                />
+                <Events data={data} eLoad={loading} reload={reload} />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/reports"
+            element={
+              <div>
+                <Home
+                  startStudentLoad={startStudentLoad}
+                  startLoading={startLoading}
+                />
+                <Reports
+                  student={student}
+                  reload={reload}
+                  sLoad={studentLoad}
+                />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <div>
+                <Home
+                  startStudentLoad={startStudentLoad}
+                  startLoading={startLoading}
+                />
+                <Login />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/signup"
+            element={
+              <div>
+                <Home
+                  startStudentLoad={startStudentLoad}
+                  startLoading={startLoading}
+                />
 
-                  <Signup />
-                </div>
-              }
-            ></Route>
-          </Routes>
-        </div>
-      
+                <Signup />
+              </div>
+            }
+          ></Route>
+        </Routes>
+      </div>
     </div>
   );
 };

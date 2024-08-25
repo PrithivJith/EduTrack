@@ -4,7 +4,6 @@ import Event from "./Event";
 const EventList = ({ data,reload, eLoad }) => {
   const events = [];
   
-  console.log(events);
   return (
     <div className="mb-20">
       <h1 className="!m-6 text-3xl text-center ">&nbsp;</h1>

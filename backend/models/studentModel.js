@@ -13,7 +13,11 @@ const studentSchema = mongoose.Schema(
     attendance: {
       type: String,
       required: true,
-    }
+    },
+    user_id: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true, // This adds createdAt and updatedAt fields
