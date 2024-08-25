@@ -2,6 +2,7 @@ import express, { request, response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv"
 dotenv.config()
+import limiter from "./middleware/rateLimiter.js";
 import { PORT } from "./config.js";
 import { Event } from "./models/eventModel.js";
 import eventRoute from "./routes/eventRoute.js";
@@ -11,6 +12,7 @@ import loginRoute from "./routes/loginRoute.js"
 
 const app = express();
 app.use(express.json());
+app.use(limiter)
 const mongoDBURL = process.env.mongoDBURL;
 
 app.use(cors());
