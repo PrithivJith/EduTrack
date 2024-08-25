@@ -86,6 +86,7 @@ const Signup = ({ styles }) => {
                 </span>
               </Link>
             </p>
+            <p className="text-center opacity-50 text-[12px]">Please don't use password you regularly use for security reasons</p>
             {error && (
               <div className="flex items-center">
                 <IoMdClose size={22} color="red" />
