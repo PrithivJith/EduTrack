@@ -5,12 +5,15 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { FaUserShield } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { useLogout } from "../hooks/useLogOut";
+import { IoMdClose } from "react-icons/io";
+
 const Login = ({ styles }) => {
   const { login, error, isLoading } = useLogin("");
   const { user } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logout } = useLogout();
+  
   const logoutHandle = () => {
     logout();
   };
@@ -44,7 +47,7 @@ const Login = ({ styles }) => {
               <input
                 className="bg-rose-300 rounded-md h-10 w-[100%] text-[1.2rem] pl-2 placeholder:text-[rgba(0,0,0,0.6)]"
                 type="text"
-                autoComplete="off"
+                autoComplete="on"
                 required
                 id="username"
                 placeholder="Username"

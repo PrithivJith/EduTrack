@@ -22,6 +22,10 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
+  if (email.length>50||email.length>50){
+    throw Error("Each credential must be less than 50 characters!")
+  }
+
   if (validator.contains(email, " ")) {
     throw Error("Username should not contain any spaces");
   }

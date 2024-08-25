@@ -1,15 +1,26 @@
 import express from "express";
 import { Event } from "../models/eventModel.js";
+import {requireAuth} from "../middleware/requireAuth.js"
 
 const router = express.Router();
+router.use(requireAuth);
 
 router.post("/", async (request, response) => {
   try {
     if (
+      JSON.stringify(request.body.date).length > 75 ||
+      JSON.stringify(request.body.description).length > 75 ||
+      JSON.stringify(request.body.title).length > 75
+    ) {
+      return response.status(400).send({
+        message: "Too much information was entered.",
+      });
+    }
+    if (
       !request.body.date ||
       !request.body.description ||
       !request.body.title ||
-      !request.body.star===null
+      !request.body.star === null
     ) {
       return response.status(400).send({
         message: "Send all required fields",
@@ -50,10 +61,19 @@ router.get("/:id", async (request, response) => {
 router.put("/:id", async (request, response) => {
   try {
     if (
+      JSON.stringify(request.body.date).length > 75 ||
+      JSON.stringify(request.body.description).length > 75 ||
+      JSON.stringify(request.body.title).length > 75
+    ) {
+      return response.status(400).send({
+        message: "Too much information was entered.",
+      });
+    }
+    if (
       !request.body.date ||
       !request.body.description ||
       !request.body.title ||
-      !request.body.star===null
+      !request.body.star === null
     ) {
       return response.status(400).send({
         message: "Send all required fields",

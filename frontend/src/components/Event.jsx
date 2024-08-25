@@ -3,6 +3,7 @@ import { FaEdit, FaRegStar, FaStar } from "react-icons/fa";
 import { MdDelete, MdEdit, MdDone } from "react-icons/md";
 import axios from "axios";
 import BarLoader from "react-spinners/BarLoader";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Event = ({ data, reload, eLoad }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -12,6 +13,7 @@ const Event = ({ data, reload, eLoad }) => {
   const [starLoading, setStarLoading] = useState(false);
   const [delLoading, setDelLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
+  const { user } = useAuthContext();
 
   async function toggleStar() {
     setStarLoading(true);
@@ -27,6 +29,7 @@ const Event = ({ data, reload, eLoad }) => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -57,6 +60,7 @@ const Event = ({ data, reload, eLoad }) => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -78,7 +82,10 @@ const Event = ({ data, reload, eLoad }) => {
     setDelLoading(true);
     try {
       const response = await axios.delete(
-        `http://localhost:5555/events/${data._id}`
+        `http://localhost:5555/events/${data._id}`,{headers: {
+          "Content-Type": "application/json",
+          "Authorization":`Bearer ${user.token}`
+        }}
       );
       console.log("Response:", response.data);
       reload(data._id);
@@ -131,7 +138,10 @@ const Event = ({ data, reload, eLoad }) => {
         )}
 
         <div className="flex gap-1">
-          {(eLoad[0] && eLoad[1] === data._id) || starLoading||delLoading||editLoading ? (
+          {(eLoad[0] && eLoad[1] === data._id) ||
+          starLoading ||
+          delLoading ||
+          editLoading ? (
             <BarLoader className="mb-3" size={10} color="#000" />
           ) : (
             <div>
@@ -148,18 +158,18 @@ const Event = ({ data, reload, eLoad }) => {
                     onClick={toggleEdit}
                   />
                   {data.star ? (
-                  <FaStar
-                    size={32}
-                    color="hsl(54, 93.00%, 40%)"
-                    onClick={toggleStar}
-                    className="hover:cursor-pointer"
-                  />
+                    <FaStar
+                      size={32}
+                      color="hsl(54, 93.00%, 40%)"
+                      onClick={toggleStar}
+                      className="hover:cursor-pointer"
+                    />
                   ) : (
-                  <FaRegStar
-                    className="hover:cursor-pointer"
-                    size={32}
-                    onClick={toggleStar}
-                  />
+                    <FaRegStar
+                      className="hover:cursor-pointer"
+                      size={32}
+                      onClick={toggleStar}
+                    />
                   )}
                 </div>
               ) : (

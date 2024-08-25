@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import axios from "axios";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 const AddEvent = ({ reload,loadingEvent }) => {
   const [loading, setLoading] = useState(false);
+  const {user} = useAuthContext();
   useEffect(()=>{
     loadingEvent(loading);
   },[loading])
@@ -21,6 +22,7 @@ const AddEvent = ({ reload,loadingEvent }) => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
