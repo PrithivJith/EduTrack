@@ -55,6 +55,7 @@ router.get("/", async (request, response) => {
 router.get("/:id", async (request, response) => {
   try {
     const { id } = request.params;
+
     const event = await Event.findById(id);
     return response.status(200).json(event);
   } catch (error) {
@@ -97,6 +98,11 @@ router.put("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;
+    const user_id = request.user._id;
+    if (id==="all"){
+      const result = await Event.deleteMany({user_id:user_id});
+      return response.status(200).send({ message: "All events deleted successfully" });
+    }
     const result = await Event.findByIdAndDelete(id);
     if (!result) {
       return response.status(404).send({ message: "Event Not found" });

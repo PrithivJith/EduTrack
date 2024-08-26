@@ -9,12 +9,11 @@ import cors from "cors";
 import loginRoute from "./routes/loginRoute.js";
 import rateLimiter from "express-rate-limit";
 
-
 const app = express();
 app.use(express.json());
 const limiter = rateLimiter({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 200,
 });
 app.use(limiter);
 const mongoDBURL = process.env.mongoDBURL;

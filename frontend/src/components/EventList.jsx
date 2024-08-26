@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Event from "./Event";
 
-const EventList = ({ data,reload, eLoad }) => {
-  const events = [];
+const EventList = ({ data,reload, eLoad,setIsEmpty }) => {
+  useEffect(()=>{
+    if(data.length===0){
+      //alert(typeof data)
+      setIsEmpty(true)
+    }else{
+      //alert(data.length)
+      setIsEmpty(false)
+    }
+  },[data])
   
   return (
     <div className="mb-20">
